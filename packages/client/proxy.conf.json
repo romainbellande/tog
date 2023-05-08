@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "http://api.tog.localhost",
+    "secure": false
+  }
+}

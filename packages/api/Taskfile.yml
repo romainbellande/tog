@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  console:
+    desc: execute console
+    cmds:
+      - docker-compose exec api bash -c "npm run console:dev -- {{ .ARGS }}"
+
+  migration:create:
+    desc: execute console
+    cmds:
+      - task: console
+        vars:
+          ARGS: db migration:create {{ .CLI_ARGS }}
+
+  migration:up:
+    desc: migrate up to the latest version
+    cmds:
+      - task: console
+        vars:
+          ARGS: db migration:up

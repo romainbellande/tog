@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: "traefik:v2.3"
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.useBindPortIP=true"
+      - "traefik.http.routers.traefik=true"
+      - "traefik.enable=true"
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "8085:8085"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/config.yml:/etc/traefik/config.yml:ro
+
+  pg:
+    image: "postgres:15.2-alpine3.17"
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: tog
+    ports:
+      - 5451:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  api:
+    image: node:19
+    # hostname is used for graphql codegen client
+    hostname: api.tog.localhost
+    user: "${UID}:${GID}"
+    working_dir: /home/node
+    command: npm run serve api
+    restart: unless-stopped
+    environment:
+      NX_DATABASE_URL: postgres://pguser:pgpass@pg/tog
+      NX_PORT: 80
+    volumes:
+      - ./:/home/node
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.server.rule=Host(`api.tog.localhost`)"
+      - "traefik.http.routers.server.entrypoints=http"
+      - 'traefik.http.services.server.loadbalancer.server.port=80'
+    depends_on:
+      - pg
+
+  client:
+    build:
+      context: .
+      dockerfile: ./docker/client/Dockerfile
+    user: "${UID}:${GID}"
+    working_dir: /home/node
+    command: ./docker/wait-for-it.sh api:80 -t 240 -s -- npm run serve:client
+    restart: unless-stopped
+    volumes:
+      - ./:/home/node
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.client.rule=Host(`tog.localhost`)"
+      - "traefik.http.routers.client.entrypoints=http"
+      - 'traefik.http.services.client.loadbalancer.server.port=4200'
+    depends_on:
+      - api
+
+volumes:
+  pg-data:
