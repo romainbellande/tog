@@ -61,6 +61,8 @@ services:
     working_dir: /home/node
     command: ./docker/wait-for-it.sh api:80 -t 240 -s -- npm run serve:client
     restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_GRAPHQL_ENDPOINT: http://api.tog.localhost/graphql
     volumes:
       - ./:/home/node
     labels:

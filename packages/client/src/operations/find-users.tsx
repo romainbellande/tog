@@ -9,3 +9,7 @@ export const findUsers = graphql(`
     }
   }
 `);
+
+import { graphqlClient } from '../graphql-client';
+
+export const findUsersQuery = () => graphqlClient.request(findUsers);

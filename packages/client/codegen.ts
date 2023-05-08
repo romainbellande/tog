@@ -13,9 +13,14 @@ const config: CodegenConfig = {
       // documents: [join(__dirname, './src/gql/**/*.graphql')],
       schema: "http://api.tog.localhost/graphql",
       preset: "client",
-      config: {
-        documentMode: 'string',
-      },
+      // config: {
+      //   documentMode: 'string'
+      // }
+      // plugins: ['typescript-react-query'],
+      // config: {
+      //   fetcher: 'graphql-request',
+      //   dedupeOperationSuffix: true
+      // }
     }
   }
 };

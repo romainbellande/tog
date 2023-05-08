@@ -1,6 +1,14 @@
 import styles from './index.module.scss';
+import { findUsersQuery } from '../src/operations';
+
+export async function getServerSideProps() {
+  const { users } = await findUsersQuery();
+  console.log('data :>> ', users);
+  return { props: { users } };
+}
 
 export function Index() {
+
   /*
    * Replace the elements below with your own.
    *
