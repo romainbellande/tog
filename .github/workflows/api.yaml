@@ -30,3 +30,6 @@ jobs:
 
         - name: execute tests
           run: npx nx run api:test
+
+        - name: execute lint
+          run: npx nx run api:lint
