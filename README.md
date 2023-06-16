@@ -17,3 +17,8 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+## References
+
+- [sociala](http://uitheme.net/sociala/default.html)
+- [mikro orm graphql example](https://github.com/driescroons/mikro-orm-graphql-example)

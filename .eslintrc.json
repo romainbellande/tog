@@ -1,13 +1,13 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@nx", "prettier", "unused-imports"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nx/enforce-module-boundaries": [
-          "error",
+          "off",
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
@@ -18,7 +18,30 @@
               }
             ]
           }
-        ]
+        ],
+        "no-unused-vars": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+          "warn",
+          {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "prettier/prettier": [
+          "warn",
+          {
+            "tabWidth": 2,
+            "printWidth": 80,
+            "singleQuote": true,
+            "trailingComma": "es5"
+          }
+        ],
+        "eol-last": ["error", "always"],
+        "no-trailing-spaces": "error",
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }]
       }
     },
     {

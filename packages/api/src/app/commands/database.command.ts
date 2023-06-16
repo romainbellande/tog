@@ -2,7 +2,6 @@ import { MikroORM } from '@mikro-orm/core';
 import { Injectable } from '@nestjs/common';
 import { Console, Command, createSpinner } from 'nestjs-console';
 
-
 interface MigrationCreateOptions {
   initial: boolean;
 }
@@ -10,9 +9,7 @@ interface MigrationCreateOptions {
 @Console({ command: 'db' })
 @Injectable()
 export class DatabaseCommand {
-  constructor(
-    private readonly orm: MikroORM
-  ) {}
+  constructor(private readonly orm: MikroORM) {}
 
   @Command({
     command: 'migration:create',
@@ -22,9 +19,9 @@ export class DatabaseCommand {
         flags: '-i, --initial',
         required: false,
         defaultValue: false,
-        description: 'initial migration'
-      }
-    ]
+        description: 'initial migration',
+      },
+    ],
   })
   async migrationCreate({ initial }: MigrationCreateOptions) {
     const spin = createSpinner();
@@ -45,7 +42,7 @@ export class DatabaseCommand {
 
   @Command({
     command: 'migration:up',
-    description: 'migrate up to the latest version'
+    description: 'migrate up to the latest version',
   })
   async migrationUp() {
     const spin = createSpinner();

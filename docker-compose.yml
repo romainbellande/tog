@@ -43,6 +43,9 @@ services:
     environment:
       NX_DATABASE_URL: postgres://pguser:pgpass@pg/tog
       NX_PORT: 80
+      NODE_ENV: development
+      NX_TRACING_ENABLED: true
+      NX_TRACING_URL: http://jaeger:4318/v1/traces
     volumes:
       - ./:/home/node
     labels:
@@ -52,6 +55,17 @@ services:
       - 'traefik.http.services.server.loadbalancer.server.port=80'
     depends_on:
       - pg
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.46.0
+    environment:
+      COLLECTOR_OTLP_ENABLED: true
+      LOG_LEVEL: debug
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jaeger.rule=Host(`jaeger.tog.localhost`)"
+      - "traefik.http.routers.jaeger.entrypoints=http"
+      - 'traefik.http.services.jaeger.loadbalancer.server.port=16686'
 
   client:
     build:

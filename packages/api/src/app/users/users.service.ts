@@ -2,33 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { EntityRepository, EntityManager } from '@mikro-orm/postgresql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 
-import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
-
-class ApiResponse {
-  id?: number;
-  status: number;
-  code?: number;
-  message: string;
-
-  static created({ id, message = 'success' }: { id?: number, message?: string }): ApiResponse {
-    return {
-      id,
-      status: 201,
-      message,
-    };
-  }
-}
+import { CreateUserInput } from './dto/create-user.input';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private readonly userRepository: EntityRepository<User>, private readonly em: EntityManager) {}
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: EntityRepository<User>,
+    private readonly em: EntityManager
+  ) {}
 
-  async create(createUserInput: CreateUserInput): Promise<ApiResponse> {
+  async create(createUserInput: CreateUserInput): Promise<User> {
     const user = this.userRepository.create(createUserInput);
     await this.em.persistAndFlush(user);
-    return ApiResponse.created({ id: user.id })
+    return user;
   }
 
   findAll(): Promise<User[]> {
