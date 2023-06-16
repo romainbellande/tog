@@ -17,8 +17,7 @@ import { join } from 'path';
 
 import { UsersModule } from './users/users.module';
 import { CommandsModule } from './commands/commands.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import {
   validationSchema,
   configuration,
@@ -69,8 +68,8 @@ import {
     // ReferendumModule,
     // ReferendumVoteModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule implements NestModule, OnModuleInit {
   constructor(private readonly orm: MikroORM) {}

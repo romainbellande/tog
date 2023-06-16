@@ -19,3 +19,8 @@ tasks:
       - task: console
         vars:
           ARGS: db migration:up
+
+  test:unit:
+    desc: execute unit tests
+    cmds:
+      - npx nx run api:test

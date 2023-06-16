@@ -25,6 +25,7 @@ specifiers:
   '@nestjs/platform-express': ^9.1.1
   '@nestjs/schematics': ^9.1.0
   '@nestjs/testing': ^9.1.1
+  '@ngneat/falso': ^6.4.0
   '@nx/cypress': 16.1.1
   '@nx/eslint-plugin': 16.1.1
   '@nx/jest': 16.1.1
@@ -128,6 +129,7 @@ dependencies:
   '@nestjs/core': 9.4.0_s52inwjga72fw7w7ilq4rk5hru
   '@nestjs/graphql': 11.0.5_6nywoc255o3t6a6somw2jyzmu4
   '@nestjs/platform-express': 9.4.0_gqkob5jndcfeb3wjw72wbdwyne
+  '@ngneat/falso': 6.4.0
   '@opentelemetry/auto-instrumentations-node': 0.37.1_@opentelemetry+api@1.4.1
   '@opentelemetry/exporter-jaeger': 1.14.0_@opentelemetry+api@1.4.1
   '@opentelemetry/exporter-trace-otlp-http': 0.40.0_@opentelemetry+api@1.4.1
@@ -3887,6 +3889,13 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
+
+  /@ngneat/falso/6.4.0:
+    resolution: {integrity: sha512-f6r036h2fX/AoHw1eV2t8+qWQwrbSrozs3zXMhhwoO7SJBc+DGMxRWEhFeYIinfwx0uhUH8ggx5+PDLzYESLOA==}
+    dependencies:
+      seedrandom: 3.0.5
+      uuid: 8.3.2
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -14579,6 +14588,10 @@ packages:
 
   /secure-json-parse/2.7.0:
     resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
+    dev: false
+
+  /seedrandom/3.0.5:
+    resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
     dev: false
 
   /select-hose/2.0.0:
