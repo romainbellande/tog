@@ -24,3 +24,8 @@ tasks:
     desc: execute unit tests
     cmds:
       - npx nx run api:test
+
+  lint:fix:
+    desc: fix lint issues
+    cmds:
+     - npx nx run api:lint --fix
