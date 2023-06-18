@@ -63,6 +63,8 @@ jobs:
       needs: [build]
       runs-on: ubuntu-latest
 
+      container: node:20-alpine
+
       strategy:
         matrix:
           node-version: [20.x]
@@ -73,6 +75,8 @@ jobs:
           image: postgres:15.2-alpine3.17
           env:
             POSTGRES_DB: tog
+            POSTGRES_USER: pguser
+            POSTGRES_PASSWORD: pgpass
           ports:
             - 5432/tcp
 
@@ -96,6 +100,6 @@ jobs:
           # run: npm run api:e2e
           run: npx nx run api:serve:development --verbose
           env:
-            NX_DATABASE_URL: postgres://postgres:5432/tog
+            NX_DATABASE_URL: postgres://pguser:pgpass@postgres:5432/tog
             NX_PORT: 8086
             NX_HOST_URL: 127.0.0.1
