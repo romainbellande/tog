@@ -45,3 +45,4 @@ Thumbs.db
 .npm
 .bash_history
 .husky
+.snapshot-tog.json
