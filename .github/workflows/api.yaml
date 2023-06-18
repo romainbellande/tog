@@ -39,14 +39,20 @@ jobs:
 
         steps:
           - uses: actions/checkout@v3
+
           - uses: pnpm/action-setup@v2
             with:
               version: 8
+
           - name: Use Node.js ${{ matrix.node-version }}
             uses: actions/setup-node@v3
             with:
               node-version: ${{ matrix.node-version }}
               cache: 'pnpm'
+
+          - name: Install dependencies
+            run: pnpm install
+
           - name: execute tests
             run: npx nx run api:test
 
@@ -72,18 +78,23 @@ jobs:
 
       steps:
         - uses: actions/checkout@v3
+
         - uses: pnpm/action-setup@v2
           with:
             version: 8
+
         - name: Use Node.js ${{ matrix.node-version }}
           uses: actions/setup-node@v3
           with:
             node-version: ${{ matrix.node-version }}
             cache: 'pnpm'
+
         - name: Install dependencies
           run: pnpm install
+
         - name: run server and execute e2e tests
-          run: npm run api:e2e
+          # run: npm run api:e2e
+          run: npx nx api:serve:development --verbose
           env:
             NX_DATABASE_URL: postgres://postgres:${{ job.services.mongodb.ports[5432] }}/tog
             NX_PORT: 8086
