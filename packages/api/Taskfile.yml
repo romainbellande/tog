@@ -31,7 +31,7 @@ tasks:
       NX_PORT: 8086
       NX_DATABASE_URL: postgres://pguser:pgpass@localhost:5451/tog
     cmds:
-     - npm run api:e2e
+     - npx nx run api:serve:development & sleep 10; npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
   lint:fix:
     desc: fix lint issues
     cmds:
