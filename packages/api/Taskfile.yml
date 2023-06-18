@@ -25,6 +25,13 @@ tasks:
     cmds:
       - npx nx run api:test
 
+  test:e2e:
+    desc: execute e2e tests
+    env:
+      NX_PORT: 8086
+      NX_DATABASE_URL: postgres://pguser:pgpass@localhost:5451/tog
+    cmds:
+     - npx nx run api:serve:development & sleep 10; npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
   lint:fix:
     desc: fix lint issues
     cmds:

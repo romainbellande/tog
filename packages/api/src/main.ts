@@ -26,7 +26,7 @@ interface HandleMigrationProps {
 const handleMigration = async ({ logger, orm }: HandleMigrationProps) => {
   const migrator = orm.getMigrator();
 
-  const migrations = await migrator.getPendingMigrations();
+  const migrations = await migrator.up();
 
   if (migrations && migrations.length > 0) {
     await migrator.up();
@@ -60,9 +60,10 @@ async function bootstrap() {
 
   const configService = app.get<ConfigService<Configuration>>(ConfigService);
 
-  const port = configService.get('port');
+  app.enableShutdownHooks();
 
-  const host = '0.0.0.0';
+  const port = configService.get('port');
+  const host = configService.get('host');
 
   await app.listen(port, host);
 

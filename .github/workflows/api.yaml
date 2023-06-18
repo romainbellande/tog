@@ -28,8 +28,76 @@ jobs:
         - name: Install dependencies
           run: pnpm install
 
-        - name: execute tests
-          run: npx nx run api:test
+    test-unit:
+        needs: [build]
+        runs-on: ubuntu-latest
 
-        - name: execute lint
-          run: npx nx run api:lint
+        strategy:
+          matrix:
+            node-version: [20.x]
+            package: [api]
+
+        steps:
+          - uses: actions/checkout@v3
+
+          - uses: pnpm/action-setup@v2
+            with:
+              version: 8
+
+          - name: Use Node.js ${{ matrix.node-version }}
+            uses: actions/setup-node@v3
+            with:
+              node-version: ${{ matrix.node-version }}
+              cache: 'pnpm'
+
+          - name: Install dependencies
+            run: pnpm install
+
+          - name: execute tests
+            run: npx nx run api:test
+
+          - name: execute lint
+            run: npx nx run api:lint
+
+    tests-e2e:
+      needs: [build]
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: [20.x]
+          package: [api]
+
+      services:
+        postgres:
+          image: postgres:15.2-alpine3.17
+          env:
+            POSTGRES_DB: tog
+            POSTGRES_USER: pguser
+            POSTGRES_PASSWORD: pgpass
+          ports:
+            - 5432/tcp
+
+      steps:
+        - uses: actions/checkout@v3
+
+        - uses: pnpm/action-setup@v2
+          with:
+            version: 8
+
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ matrix.node-version }}
+            cache: 'pnpm'
+
+        - name: Install dependencies
+          run: pnpm install
+
+        - name: run server and execute e2e tests
+          run: |
+            npx nx run api:serve:development &
+            sleep 15; npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
+          env:
+            NX_DATABASE_URL: postgres://pguser:pgpass@localhost:${{ job.services.postgres.ports[5432] }}/tog
+            NX_PORT: 8086
+            NX_HOST_URL: 127.0.0.1
