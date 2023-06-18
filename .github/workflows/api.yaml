@@ -41,8 +41,6 @@ jobs:
     tests-e2e:
       runs-on: ubuntu-latest
 
-      container: node:20-alpine
-
       services:
         postgres:
           image: postgres:15.2-alpine3.17
