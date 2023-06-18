@@ -26,7 +26,7 @@ interface HandleMigrationProps {
 const handleMigration = async ({ logger, orm }: HandleMigrationProps) => {
   const migrator = orm.getMigrator();
 
-  const migrations = await migrator.getPendingMigrations();
+  const migrations = await migrator.up();
 
   if (migrations && migrations.length > 0) {
     await migrator.up();
