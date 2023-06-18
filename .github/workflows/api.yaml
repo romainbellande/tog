@@ -62,9 +62,6 @@ jobs:
     tests-e2e:
       needs: [build]
       runs-on: ubuntu-latest
-
-      container: node:20-alpine
-
       strategy:
         matrix:
           node-version: [20.x]
@@ -99,6 +96,6 @@ jobs:
         - name: run server and execute e2e tests
           run: npm run api:e2e
           env:
-            NX_DATABASE_URL: postgres://pguser:pgpass@postgres:5432/tog
+            NX_DATABASE_URL: postgres://pguser:pgpass@localhost:${{ job.services.postgres.ports[5432] }}/tog
             NX_PORT: 8086
-            # NX_HOST_URL: 127.0.0.1
+            NX_HOST_URL: 127.0.0.1
