@@ -94,7 +94,7 @@ jobs:
 
         - name: run server and execute e2e tests
           # run: npm run api:e2e
-          run: npx nx api:serve:development --verbose
+          run: npx nx run api:serve:development --verbose
           env:
             NX_DATABASE_URL: postgres://postgres:${{ job.services.mongodb.ports[5432] }}/tog
             NX_PORT: 8086
