@@ -13,7 +13,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { pinoLoggerFactory } from '@api/utils/pino-logger-factory';
 import { MikroORM, ReflectMetadataProvider } from '@mikro-orm/core';
 import { LoggerModule } from 'nestjs-pino';
-import { join } from 'path';
 
 import { UsersModule } from './users/users.module';
 import { CommandsModule } from './commands/commands.module';
@@ -23,6 +22,7 @@ import {
   configuration,
   Configuration,
 } from '../configuration';
+import { migrationsList } from '@api/utils';
 
 @Module({
   imports: [
@@ -47,8 +47,7 @@ import {
         registerRequestContext: false,
         type: 'postgresql',
         migrations: {
-          path: 'dist/packages/api/migrations',
-          pathTs: join(__dirname, '../migrations'),
+          migrationsList,
         },
         validate: false,
         validateRequired: false,

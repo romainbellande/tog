@@ -60,8 +60,11 @@ async function bootstrap() {
 
   const configService = app.get<ConfigService<Configuration>>(ConfigService);
 
+  app.enableShutdownHooks();
+
   const port = configService.get('port');
   const host = configService.get('host');
+
   await app.listen(port, host);
 
   logger.log(`🚀 Api is running on: http://${host}:${port}/graphql`);
