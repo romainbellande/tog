@@ -28,8 +28,33 @@ jobs:
         - name: Install dependencies
           run: pnpm install
 
-        - name: execute tests
-          run: npx nx run api:test
+    test-unit:
+        runs-on: ubuntu-latest
 
-        - name: execute lint
-          run: npx nx run api:lint
+        steps:
+          - name: execute tests
+            run: npx nx run api:test
+
+          - name: execute lint
+            run: npx nx run api:lint
+
+    tests-e2e:
+      runs-on: ubuntu-latest
+
+      container: node:20-alpine
+
+      services:
+        postgres:
+          image: postgres:15.2-alpine3.17
+          env:
+            POSTGRES_DB: tog
+          ports:
+            - 5432/tcp
+
+      steps:
+        - uses: actions/checkout@v3
+        - name: run server and execute e2e tests
+          run: npm run api:e2e
+          env:
+            NX_DATABASE_URL: postgres://postgres:${{ job.services.mongodb.ports[5432] }}/tog
+            NX_PORT: 8086

@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "14f99212-919e-445f-9502-7e93552ee464",
+		"name": "tog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "370027"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "[user] create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"    properties: {",
+									"        data: {",
+									"            type: \"object\",",
+									"            properties: {",
+									"                createUser: {",
+									"                    type: \"object\",",
+									"                    properties: {",
+									"                        id: {",
+									"                            type: \"string\"",
+									"                        },",
+									"                        name: {",
+									"                            type: \"string\"",
+									"                        },",
+									"                        externalId: {",
+									"                            type: \"string\"",
+									"                        },",
+									"                        createdAt: {",
+									"                            type: \"string\"",
+									"                        },",
+									"                        updatedAt: {",
+									"                            type: \"string\"",
+									"                        },",
+									"                    },",
+									"                    required: [\"id\", \"name\", \"externalId\", \"createdAt\", \"updatedAt\"]",
+									"                }",
+									"            },",
+									"            required: [\"createUser\"]",
+									"        },",
+									"        required: [\"data\"]",
+									"    }",
+									"};",
+									"",
+									"pm.test('Schema is valid', function () {",
+									"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateUser($createUserInput: CreateUserInput!) {\n  createUser(createUserInput: $createUserInput) {\n    id\n    name\n    externalId\n    createdAt\n    updatedAt\n  }\n}\n",
+								"variables": "{\n  \"createUserInput\": {\n    \"externalId\": \"{{$randomUUID}}\",\n    \"name\": \"{{$randomUserName}}\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
