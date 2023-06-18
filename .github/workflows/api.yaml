@@ -97,8 +97,7 @@ jobs:
           run: pnpm install
 
         - name: run server and execute e2e tests
-          # run: npm run api:e2e
-          run: npx nx run api:serve:development --verbose
+          run: npm run api:e2e
           env:
             NX_DATABASE_URL: postgres://pguser:pgpass@postgres:5432/tog
             NX_PORT: 8086

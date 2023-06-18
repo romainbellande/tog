@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "lint:all": "nx run-many --all --target=lint",
     "test:all": "nx run-many --all --target=test",
-    "api:run": "npx nx run api:serve:development --verbose",
+    "api:run": "npx nx run api:serve:development",
     "api:e2e": "concurrently --kill-others --group --success=first \"npm run api:run\"  \"sleep 10; npm run api:e2e:run\"",
     "api:e2e:run": "npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json",
     "console:dev": "ts-node -P ./packages/api/tsconfig.app.json -r tsconfig-paths/register packages/api/src/console.ts",
