@@ -25,6 +25,7 @@ export const validationSchema = Joi.object({
     otherwise: Joi.string().uri({ scheme: ['http', 'https'] }),
   }),
   NX_TRACING_ENABLED: Joi.boolean().default(false),
+  NX_HOST_URL: Joi.string().ip({ version: 'ipv4' }).default('0.0.0.0'),
 });
 
 export interface TracingConfiguration {
@@ -35,6 +36,7 @@ export interface TracingConfiguration {
 export interface Configuration {
   databaseUrl: string;
   port: number;
+  host: string;
   isProduction: boolean;
   logLevel: Level;
   tracing: TracingConfiguration;
@@ -43,6 +45,7 @@ export interface Configuration {
 export const configuration = (): Configuration => ({
   databaseUrl: process.env.NX_DATABASE_URL,
   port: parseInt(process.env.NX_PORT, 10),
+  host: process.env.NX_HOST_URL,
   isProduction: process.env['NODE' + '_ENV'] === 'production',
   logLevel: process.env['NX_LOG_LEVEL'] as Level,
   tracing: {

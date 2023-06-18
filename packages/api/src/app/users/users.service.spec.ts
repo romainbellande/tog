@@ -1,7 +1,7 @@
 import { createUserInputFixture, userFixture } from './user.fixture';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
-import { EntityManager } from '@mikro-orm/postgresql';
+import { EntityManager } from '@mikro-orm/core';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { User } from './entities/user.entity';
 
