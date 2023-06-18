@@ -93,11 +93,10 @@ jobs:
         - name: Install dependencies
           run: pnpm install
 
-        - name: run api in background
-          run: npx nx run api:serve:development &
-
         - name: run server and execute e2e tests
-          run: sleep 10; npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
+          run: |
+            npx nx run api:serve:development &
+            sleep 10; npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
           env:
             NX_DATABASE_URL: postgres://pguser:pgpass@localhost:${{ job.services.postgres.ports[5432] }}/tog
             NX_PORT: 8086
