@@ -96,6 +96,6 @@ jobs:
           # run: npm run api:e2e
           run: npx nx run api:serve:development --verbose
           env:
-            NX_DATABASE_URL: postgres://postgres:${{ job.services.mongodb.ports[5432] }}/tog
+            NX_DATABASE_URL: postgres://postgres:5432/tog
             NX_PORT: 8086
             NX_HOST_URL: 127.0.0.1
