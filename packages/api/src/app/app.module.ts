@@ -5,24 +5,20 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
-import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { pinoLoggerFactory } from '@api/utils/pino-logger-factory';
-import { MikroORM, ReflectMetadataProvider } from '@mikro-orm/core';
+import { MikroORM } from '@mikro-orm/core';
 import { LoggerModule } from 'nestjs-pino';
 
 import { UsersModule } from './users/users.module';
 import { CommandsModule } from './commands/commands.module';
+import MikroOrmConfig from '../mikro-orm.config';
+import { validationSchema, configuration } from '../configuration';
 
-import {
-  validationSchema,
-  configuration,
-  Configuration,
-} from '../configuration';
-import { migrationsList } from '@api/utils';
+console.log('MikroOrmConfig :>> ', MikroOrmConfig);
 
 @Module({
   imports: [
@@ -36,24 +32,7 @@ import { migrationsList } from '@api/utils';
       useFactory: pinoLoggerFactory,
       inject: [ConfigService],
     }),
-    MikroOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService<Configuration>) => ({
-        autoLoadEntities: true,
-        clientUrl: configService.get('databaseUrl'),
-        metadataProvider: ReflectMetadataProvider,
-        driver: PostgreSqlDriver,
-        discovery: { disableDynamicFileAccess: true },
-        registerRequestContext: false,
-        type: 'postgresql',
-        migrations: {
-          migrationsList,
-        },
-        validate: false,
-        validateRequired: false,
-      }),
-      inject: [ConfigService],
-    }),
+    MikroOrmModule.forRoot(MikroOrmConfig),
     CommandsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

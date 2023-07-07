@@ -3,7 +3,7 @@ import { EntityRepository, EntityManager } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 
 import { UpdateUserInput } from './dto/update-user.input';
-import { User } from './entities/user.entity';
+import { User } from '@api/entities';
 import { CreateUserInput } from './dto/create-user.input';
 
 @Injectable()

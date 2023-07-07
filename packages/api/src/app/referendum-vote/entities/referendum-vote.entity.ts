@@ -1,5 +1,5 @@
-import { Referendum } from '@api/app/referendum/entities/referendum.entity';
-import { User } from '@api/app/users/entities/user.entity';
+import { Referendum } from '@api/entities/referendum.entity';
+import { User } from '@api/entities';
 import { Entity, ManyToOne, PrimaryKey, Ref, ref } from '@mikro-orm/core';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 

@@ -4,7 +4,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 
 import { CreateReferendumInput } from './dto/create-referendum.input';
 import { UpdateReferendumInput } from './dto/update-referendum.input';
-import { Referendum } from './entities/referendum.entity';
+import { Referendum } from '@api/entities/referendum.entity';
 
 @Injectable()
 export class ReferendumService {

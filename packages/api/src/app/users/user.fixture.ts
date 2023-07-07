@@ -1,5 +1,5 @@
 import { randPastDate, randUserName, randUuid } from '@ngneat/falso';
-import { User } from './entities/user.entity';
+import { User } from '@api/entities';
 import {
   Reference,
   EntityDTO,
@@ -22,6 +22,10 @@ export const userFixture: User = {
   externalId: createUserInputFixture.externalId,
   createdAt: randPastDate(),
   updatedAt: randPastDate(),
+
+  populate() {
+    throw new Error('Function not implemented.');
+  },
 
   isInitialized: function (): boolean {
     return true;
