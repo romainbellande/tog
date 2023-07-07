@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { User } from '../entities/user.entity';
+import { User } from '@api/entities';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()

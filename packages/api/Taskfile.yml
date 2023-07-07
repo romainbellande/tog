@@ -31,8 +31,22 @@ tasks:
       NX_PORT: 8086
       NX_DATABASE_URL: postgres://pguser:pgpass@localhost:5451/tog
     cmds:
-     - npx nx run api:serve:development & sleep 10; npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
+     - npx newman run ./packages/api/postman/tog.postman_collection.json -e ./packages/api/postman/tog.local.postman_environment.json
+
   lint:fix:
     desc: fix lint issues
     cmds:
      - npx nx run api:lint --fix
+
+  mikro-orm:
+    desc: execute mikro orm commands
+    cmds:
+      - docker compose exec api bash -c "cd ./packages/api && npx mikro-orm {{.command}}"
+
+  mikro-orm:seeder:run:
+    desc: run mikro orm seeder
+    cmds:
+     - task: mikro-orm
+       vars:
+         command: seeder:run
+

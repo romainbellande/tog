@@ -33,7 +33,9 @@ services:
       - pg-data:/var/lib/postgresql/data
 
   api:
-    image: node:19
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
     # hostname is used for graphql codegen client
     hostname: api.tog.localhost
     user: "${UID}:${GID}"
@@ -72,7 +74,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: ./docker/client/Dockerfile
+      dockerfile: ./docker/node/Dockerfile
     user: "${UID}:${GID}"
     working_dir: /home/node
     command: ./docker/wait-for-it.sh api:80 -t 240 -s -- npm run serve:client

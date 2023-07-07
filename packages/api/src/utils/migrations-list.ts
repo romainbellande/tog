@@ -9,7 +9,9 @@ function importAll(r) {
   );
 }
 
-importAll(require.context('../migrations', false, /\.ts$/));
+if (process.env.WEBPACK_SERVE === 'true') {
+  importAll(require.context('../migrations', false, /\.ts$/));
+}
 
 export const migrationsList: MigrationObject[] = Object.keys(migrations).map(
   (migrationName) => ({

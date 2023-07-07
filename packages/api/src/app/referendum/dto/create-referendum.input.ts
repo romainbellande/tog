@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { ReferendumParticipants } from '../entities/referendum.entity';
+import { ReferendumParticipants } from '../../../entities/referendum.entity';
 import { Enum } from '@mikro-orm/core';
 
 @InputType()

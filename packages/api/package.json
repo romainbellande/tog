@@ -1,0 +1,13 @@
+{
+  "name": "api",
+  "dependencies": {
+    "@mikro-orm/cli": "^5.7.12"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
+  }
+}

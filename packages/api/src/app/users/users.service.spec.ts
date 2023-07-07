@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { EntityManager } from '@mikro-orm/core';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
-import { User } from './entities/user.entity';
+import { User } from '@api/entities';
 
 describe('UsersService', () => {
   let service: UsersService;
