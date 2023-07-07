@@ -1,3 +1,4 @@
+import { DatabaseSeeder } from '@api/seeders/database.seeder';
 import { MikroORM } from '@mikro-orm/core';
 import { Injectable } from '@nestjs/common';
 import { Console, Command, createSpinner } from 'nestjs-console';
@@ -55,5 +56,40 @@ export class DatabaseCommand {
       spin.fail(`an error occured during migration execution: ${error}`);
     }
     spin.succeed();
+  }
+
+  @Command({
+    command: 'seeder:run',
+    description: 'run seeder',
+  })
+  async seederRun() {
+    const seeder = this.orm.getSeeder();
+    await this.dbDrop();
+    const spin = createSpinner();
+    spin.start('executing db seeder run...');
+
+    try {
+      await seeder.seed(DatabaseSeeder);
+    } catch (error) {
+      spin.fail(`an error occured during db seeder run: ${error}`);
+    }
+
+    spin.succeed('db seeder run successfully');
+  }
+
+  @Command({
+    command: 'drop',
+    description: 'drop database',
+  })
+  async dbDrop() {
+    const spin = createSpinner();
+    spin.start('executing db drop...');
+    try {
+      await this.orm.getSchemaGenerator().refreshDatabase();
+    } catch (error) {
+      spin.fail(`an error occured during db drop: ${error}`);
+    }
+
+    spin.succeed('db dropped successfully');
   }
 }
