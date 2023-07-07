@@ -3,6 +3,7 @@ import { ReflectMetadataProvider, Options } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { configuration } from './configuration';
 import { User, Referendum } from './entities';
+import { migrationsList } from './utils';
 
 const logger = new Logger('MikroORM');
 
@@ -12,11 +13,7 @@ const config: Options = {
   metadataProvider: ReflectMetadataProvider,
   driver: PostgreSqlDriver,
   type: 'postgresql',
-  migrations: {
-    path: 'dist/migrations',
-    pathTs: 'src/migrations',
-    glob: '!(*.d).{js,ts}',
-  },
+  migrations: { migrationsList },
   validate: false,
   validateRequired: false,
   seeder: {

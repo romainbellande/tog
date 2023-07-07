@@ -1,24 +1,21 @@
 import { MigrationObject } from '@mikro-orm/core';
-import { basename, join } from 'path';
-import { readdirSync } from 'fs';
+import { basename } from 'path';
 
-const getTsFilesFromDir = (path: string): string[] => {
-  const basePath = join(__dirname, path);
-  const files = readdirSync(basePath);
-  const fileredFiles = files
-    .filter((file) => file.endsWith('.ts'))
-    .map((filePath) => join(basePath, filePath));
+const migrations = {};
 
-  return fileredFiles;
-};
+function importAll(r) {
+  r.keys().forEach(
+    (key) => (migrations[basename(key)] = Object.values(r(key))[0])
+  );
+}
 
-const getMigrationsList = (path: string): MigrationObject[] => {
-  return getTsFilesFromDir(path).map((filePath) => ({
-    name: basename(filePath),
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    class: require(filePath)[0],
-  }));
-};
+if (process.env.WEBPACK_SERVE === 'true') {
+  importAll(require.context('../migrations', false, /\.ts$/));
+}
 
-export const migrationsList: MigrationObject[] =
-  getMigrationsList('../migrations');
+export const migrationsList: MigrationObject[] = Object.keys(migrations).map(
+  (migrationName) => ({
+    name: migrationName,
+    class: migrations[migrationName],
+  })
+);
