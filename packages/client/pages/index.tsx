@@ -3,7 +3,6 @@ import { Layout } from '@client/components';
 
 export async function getServerSideProps() {
   const { users } = await findUsersQuery();
-  console.log('data :>> ', users);
   return { props: { users } };
 }
 

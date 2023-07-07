@@ -18,8 +18,6 @@ import { CommandsModule } from './commands/commands.module';
 import MikroOrmConfig from '../mikro-orm.config';
 import { validationSchema, configuration } from '../configuration';
 
-console.log('MikroOrmConfig :>> ', MikroOrmConfig);
-
 @Module({
   imports: [
     ConfigModule.forRoot({
