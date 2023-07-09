@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ReferendumVote",
+  "definitions": {
+    "ReferendumVote": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "yes": {
+          "type": "boolean"
+        },
+        "user": {
+          "$ref": "#/definitions/Ref%3CUser%3E"
+        },
+        "referendum": {
+          "$ref": "#/definitions/Ref%3CReferendum%3E"
+        }
+      },
+      "required": [
+        "createdAt",
+        "id",
+        "referendum",
+        "updatedAt",
+        "user",
+        "yes"
+      ],
+      "additionalProperties": false
+    },
+    "Ref<User>": {
+      "$ref": "#/definitions/IdentifiedReference%3CUser%2CPrimaryProperty%3CUser%3E%3E",
+      "description": "Shortcut for `IdentifiedReference`."
+    },
+    "IdentifiedReference<User,PrimaryProperty<User>>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "deprecated": "use `Ref` instead, `IdentifiedReference` type will be removed in v6"
+    },
+    "Ref<Referendum>": {
+      "$ref": "#/definitions/IdentifiedReference%3CReferendum%2CPrimaryProperty%3CReferendum%3E%3E",
+      "description": "Shortcut for `IdentifiedReference`."
+    },
+    "IdentifiedReference<Referendum,PrimaryProperty<Referendum>>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "deprecated": "use `Ref` instead, `IdentifiedReference` type will be removed in v6"
+    }
+  }
+}

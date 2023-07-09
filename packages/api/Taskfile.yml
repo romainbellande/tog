@@ -4,7 +4,7 @@ tasks:
   console:
     desc: execute console
     cmds:
-      - docker-compose exec api bash -c "npm run console:dev -- {{ .ARGS }}"
+      - docker compose exec api bash -c "npm run console:dev -- {{ .ARGS }}"
 
   migration:create:
     desc: execute console
@@ -26,6 +26,13 @@ tasks:
       - task: console
         vars:
           ARGS: db seeder:run
+
+  jsch:gen:
+    desc: generate json schema from entities
+    cmds:
+      - task: console
+        vars:
+          ARGS: jsch gen
 
   test:unit:
     desc: execute unit tests

@@ -18,9 +18,4 @@ export abstract class Base<T extends { id: string }> extends BaseEntity<
   @Field()
   @Property({ onUpdate: () => new Date() })
   public updatedAt: Date = new Date();
-
-  constructor(body = {}) {
-    super();
-    this.assign(body);
-  }
 }

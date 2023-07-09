@@ -2,7 +2,7 @@ import { Factory, Faker, Seeder } from '@mikro-orm/seeder';
 import { User } from '@api/entities';
 import { EntityManager } from '@mikro-orm/core';
 
-class UserFactory extends Factory<User> {
+export class UserFactory extends Factory<User> {
   model = User;
 
   definition(faker: Faker): Partial<User> {

@@ -1,13 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
-import { createUserInputFixture, userFixture } from './user.fixture';
+import { createUserInputFixture } from './user.fixture';
+import { User } from '@api/entities';
+import userSchema from '@api/entities/json-schema/user.json';
+import { Validator } from '@api/utils/tests/validator';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
 
   const mockUserService = {
-    create: jest.fn(() => userFixture),
+    create: jest.fn(() => ({
+      ...new User(),
+      ...createUserInputFixture,
+    })),
   };
 
   beforeEach(async () => {
@@ -29,6 +35,8 @@ describe('UsersResolver', () => {
   });
 
   it('should create a user', async () => {
-    expect(resolver.createUser(createUserInputFixture)).toEqual(userFixture);
+    const response = await resolver.createUser(createUserInputFixture);
+    const isValid = new Validator(userSchema).validate(response);
+    expect(isValid).toBeTruthy();
   });
 });

@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Referendum": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "participants": {
+          "$ref": "#/definitions/ReferendumParticipants"
+        },
+        "participantsExternalIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "participantsRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "votes": {
+          "$ref": "#/definitions/Collection%3CReferendumVote%2Cobject-0.302892750446351%3E"
+        }
+      },
+      "required": [
+        "answers",
+        "createdAt",
+        "description",
+        "endDate",
+        "id",
+        "name",
+        "participants",
+        "participantsExternalIds",
+        "participantsRoles",
+        "question",
+        "slug",
+        "startDate",
+        "updatedAt",
+        "votes"
+      ],
+      "additionalProperties": false
+    },
+    "Base<class-491735643-234-1565-491735643-0-1744>": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
+      "additionalProperties": false
+    },
+    "BaseEntity<class-491735643-234-1565-491735643-0-1744,\"id\">": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ReferendumParticipants": {
+      "type": "string",
+      "enum": [
+        "ALL",
+        "BY_NAME",
+        "BY_ROLE"
+      ]
+    },
+    "Collection<ReferendumVote,object-0.302892750446351>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "owner"
+      ]
+    },
+    "ArrayCollection<ReferendumVote,object-0.302892750446351>": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "owner"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
