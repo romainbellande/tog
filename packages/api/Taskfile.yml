@@ -20,6 +20,13 @@ tasks:
         vars:
           ARGS: db migration:up
 
+  seeder:run:
+    desc: execute seeder
+    cmds:
+      - task: console
+        vars:
+          ARGS: db seeder:run
+
   test:unit:
     desc: execute unit tests
     cmds:
@@ -37,16 +44,3 @@ tasks:
     desc: fix lint issues
     cmds:
      - npx nx run api:lint --fix
-
-  mikro-orm:
-    desc: execute mikro orm commands
-    cmds:
-      - docker compose exec api bash -c "cd ./packages/api && npx mikro-orm {{.command}}"
-
-  mikro-orm:seeder:run:
-    desc: run mikro orm seeder
-    cmds:
-     - task: mikro-orm
-       vars:
-         command: seeder:run
-
