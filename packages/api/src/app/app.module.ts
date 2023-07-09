@@ -23,6 +23,8 @@ import {
   Configuration,
 } from '../configuration';
 import { migrationsList } from '@api/utils';
+import { ReferendumModule } from './referendum/referendum.module';
+import { join } from 'path';
 
 const MikroOrmLogger = new Logger('MikroORM');
 @Module({
@@ -49,6 +51,7 @@ const MikroOrmLogger = new Logger('MikroORM');
         type: 'postgresql',
         migrations: {
           migrationsList,
+          pathTs: join(__dirname, '../migrations'),
         },
         validate: false,
         validateRequired: false,
@@ -66,7 +69,7 @@ const MikroOrmLogger = new Logger('MikroORM');
       introspection: true,
     }),
     UsersModule,
-    // ReferendumModule,
+    ReferendumModule,
     // ReferendumVoteModule,
   ],
   controllers: [],

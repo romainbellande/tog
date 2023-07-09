@@ -9,7 +9,7 @@ import {
 import { ReferendumParticipants } from '@api/entities';
 import { CreateReferendumInput } from './dto/create-referendum.input';
 
-export const createReferendumFixture: CreateReferendumInput = {
+export const createReferendumInputFixture: CreateReferendumInput = {
   answers: [],
   name: randCompanyName(),
   slug: randSlug(),
