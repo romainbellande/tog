@@ -15,7 +15,7 @@ export class UsersService {
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
-    const user = new User().assign(createUserInput);
+    const user = this.userRepository.create(createUserInput);
     await this.em.persistAndFlush(user);
     return user;
   }
