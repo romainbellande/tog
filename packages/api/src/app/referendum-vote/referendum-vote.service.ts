@@ -14,9 +14,7 @@ export class ReferendumVoteService {
   ) {}
 
   async create(createVoteReferendumInput: CreateReferendumVoteInput) {
-    const referendum = this.referendumVoteRepository.create(
-      createVoteReferendumInput
-    );
+    const referendum = this.referendumVoteRepository.create({});
     await this.em.persistAndFlush(referendum);
     return referendum;
   }

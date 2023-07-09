@@ -1,7 +1,10 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { ReferendumVote } from '../entities/referendum-vote.entity';
 
 @InputType()
-export class CreateReferendumVoteInput {
+export class CreateReferendumVoteInput
+  implements Pick<ReferendumVote, 'answer' | 'yes'>
+{
   @Field({
     description: 'vote answer if there is multiple questions',
     nullable: true,

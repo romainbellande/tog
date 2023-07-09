@@ -1,18 +1,13 @@
-import { createUserInputFixture, userFixture } from './user.fixture';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
 import { EntityManager } from '@mikro-orm/core';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
+import { entityManagerMock } from '@api/utils/tests';
 import { User } from '@api/entities';
+import { UsersService } from './users.service';
+import { createUserInputFixture, userFixture } from './user.fixture';
 
 describe('UsersService', () => {
   let service: UsersService;
-
-  const mockEntityManager = {
-    persistAndFlush: jest.fn().mockImplementation(() => {
-      return Promise.resolve();
-    }),
-  };
 
   const mockUserRepository = {
     create: jest.fn().mockImplementation(() => Promise.resolve(userFixture)),
@@ -28,7 +23,7 @@ describe('UsersService', () => {
         },
         {
           provide: EntityManager,
-          useValue: mockEntityManager,
+          useValue: entityManagerMock,
         },
       ],
     }).compile();

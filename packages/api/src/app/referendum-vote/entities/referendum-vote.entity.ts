@@ -1,15 +1,12 @@
-import { Referendum } from '@api/entities/referendum.entity';
+import { Referendum } from '@api/entities';
 import { User } from '@api/entities';
-import { Entity, ManyToOne, PrimaryKey, Ref, ref } from '@mikro-orm/core';
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Base } from '@api/utils/base.entity';
+import { Entity, ManyToOne, Ref, ref } from '@mikro-orm/core';
+import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
-export class ReferendumVote {
-  @Field(() => Int, { description: 'identifier' })
-  @PrimaryKey({ autoincrement: true })
-  id: number;
-
+export class ReferendumVote extends Base<ReferendumVote> {
   @Field({
     description: 'vote answer if there is multiple questions',
     nullable: true,
@@ -31,6 +28,7 @@ export class ReferendumVote {
   referendum: Ref<Referendum>;
 
   constructor(user: User, referendum: Referendum) {
+    super();
     this.user = ref(user);
     this.referendum = ref(referendum);
   }
