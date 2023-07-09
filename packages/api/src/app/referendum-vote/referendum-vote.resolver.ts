@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ReferendumVoteService } from './referendum-vote.service';
-import { ReferendumVote } from './entities/referendum-vote.entity';
+import { ReferendumVote } from '@api/entities';
 import { CreateReferendumVoteInput } from './dto/create-referendum-vote.input';
 import { UpdateReferendumVoteInput } from './dto/update-referendum-vote.input';
 

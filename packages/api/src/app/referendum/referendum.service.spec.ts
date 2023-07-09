@@ -5,15 +5,18 @@ import { entityManagerMock } from '@api/utils/tests';
 import { ReferendumService } from './referendum.service';
 import { Referendum } from '@api/entities';
 import { EntityManager } from '@mikro-orm/core';
-import { referendumFixture } from './referendum.fixture';
+import { createReferendumFixture } from './referendum.fixture';
 
 describe('ReferendumService', () => {
   let service: ReferendumService;
 
   const mockReferendumRepository = {
-    create: jest
-      .fn()
-      .mockImplementation(() => Promise.resolve(referendumFixture)),
+    create: jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        ...new Referendum(),
+        ...createReferendumFixture,
+      })
+    ),
   };
 
   beforeEach(async () => {

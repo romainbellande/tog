@@ -3,7 +3,7 @@ import { CreateReferendumVoteInput } from './dto/create-referendum-vote.input';
 import { UpdateReferendumVoteInput } from './dto/update-referendum-vote.input';
 import { EntityRepository, EntityManager } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { ReferendumVote } from './entities/referendum-vote.entity';
+import { ReferendumVote } from '@api/entities';
 
 @Injectable()
 export class ReferendumVoteService {

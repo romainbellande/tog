@@ -1,4 +1,4 @@
-import { ReferendumVote } from '@api/app/referendum-vote/entities/referendum-vote.entity';
+import { ReferendumVote } from '.';
 import { OneToMany, Property, Collection, Entity, Enum } from '@mikro-orm/core';
 import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
 import { Base } from '@api/utils/base.entity';

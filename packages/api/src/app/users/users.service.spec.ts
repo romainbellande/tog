@@ -4,13 +4,20 @@ import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { entityManagerMock } from '@api/utils/tests';
 import { User } from '@api/entities';
 import { UsersService } from './users.service';
-import { createUserInputFixture, userFixture } from './user.fixture';
+import { createUserInputFixture } from './user.fixture';
+import userSchema from '@api/entities/json-schema/user.json';
+import { Validator } from '@api/utils/tests/validator';
 
 describe('UsersService', () => {
   let service: UsersService;
 
   const mockUserRepository = {
-    create: jest.fn().mockImplementation(() => Promise.resolve(userFixture)),
+    create: jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        ...new User(),
+        ...createUserInputFixture,
+      })
+    ),
   };
 
   beforeEach(async () => {
@@ -36,6 +43,8 @@ describe('UsersService', () => {
   });
 
   it('should create a new user', async () => {
-    expect(await service.create(createUserInputFixture)).toEqual(userFixture);
+    const response = await service.create(createUserInputFixture);
+    const isValid = new Validator(userSchema).validate(response);
+    expect(isValid).toBeTruthy();
   });
 });

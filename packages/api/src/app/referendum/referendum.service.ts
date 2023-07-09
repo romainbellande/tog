@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EntityRepository, EntityManager } from '@mikro-orm/postgresql';
+import { EntityRepository, EntityManager } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 
 import { CreateReferendumInput } from './dto/create-referendum.input';

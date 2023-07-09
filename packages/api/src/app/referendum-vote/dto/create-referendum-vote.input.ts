@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { ReferendumVote } from '../entities/referendum-vote.entity';
+import { ReferendumVote } from '@api/entities';
 
 @InputType()
 export class CreateReferendumVoteInput
