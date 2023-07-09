@@ -38,7 +38,6 @@ services:
       dockerfile: ./docker/node/Dockerfile
     # hostname is used for graphql codegen client
     hostname: api.tog.localhost
-    user: "${UID}:${GID}"
     working_dir: /home/node
     command: npm run serve api
     restart: unless-stopped
@@ -75,7 +74,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/node/Dockerfile
-    user: "${UID}:${GID}"
     working_dir: /home/node
     command: ./docker/wait-for-it.sh api:80 -t 240 -s -- npm run serve:client
     restart: unless-stopped
