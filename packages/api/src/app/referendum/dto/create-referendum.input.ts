@@ -1,7 +1,13 @@
-import { InputType, Field, registerEnumType } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { ReferendumParticipants } from '../../../entities/referendum.entity';
 import { Enum } from '@mikro-orm/core';
-import { IsEnum, IsISO8601, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsISO8601,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 @InputType()
 export class CreateReferendumInput {
