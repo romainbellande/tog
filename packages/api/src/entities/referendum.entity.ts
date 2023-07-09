@@ -1,21 +1,11 @@
 import { ReferendumVote } from '@api/app/referendum-vote/entities/referendum-vote.entity';
-import {
-  OneToMany,
-  PrimaryKey,
-  Property,
-  Collection,
-  Entity,
-  Enum,
-} from '@mikro-orm/core';
-import { ObjectType, Field, Int, registerEnumType } from '@nestjs/graphql';
+import { OneToMany, Property, Collection, Entity, Enum } from '@mikro-orm/core';
+import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
+import { Base } from '@api/utils/base.entity';
 
 @ObjectType()
 @Entity()
-export class Referendum {
-  @Field(() => Int, { description: 'identifier' })
-  @PrimaryKey({ autoincrement: true })
-  id: number;
-
+export class Referendum extends Base<Referendum> {
   @Field({ description: 'referendum name' })
   @Property({ unique: true })
   name: string;
