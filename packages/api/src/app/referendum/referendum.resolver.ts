@@ -12,6 +12,7 @@ export class ReferendumResolver {
   createReferendum(
     @Args('createReferendumInput') createReferendumInput: CreateReferendumInput
   ) {
+    console.log('createReferendumInput :>> ', createReferendumInput);
     return this.referendumService.create(createReferendumInput);
   }
 

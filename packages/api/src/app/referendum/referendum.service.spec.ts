@@ -5,7 +5,9 @@ import { entityManagerMock } from '@api/utils/tests';
 import { ReferendumService } from './referendum.service';
 import { Referendum } from '@api/entities';
 import { EntityManager } from '@mikro-orm/core';
-import { createReferendumFixture } from './referendum.fixture';
+import { createReferendumInputFixture } from './referendum.fixture';
+import { Validator } from '@api/utils/tests/validator';
+import referendumSchema from '@api/entities/json-schema/referendum.json';
 
 describe('ReferendumService', () => {
   let service: ReferendumService;
@@ -14,7 +16,7 @@ describe('ReferendumService', () => {
     create: jest.fn().mockImplementation(() =>
       Promise.resolve({
         ...new Referendum(),
-        ...createReferendumFixture,
+        ...createReferendumInputFixture,
       })
     ),
   };
@@ -39,5 +41,11 @@ describe('ReferendumService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should create a new referendum', async () => {
+    const response = await service.create(createReferendumInputFixture);
+    const isValid = new Validator(referendumSchema).validate(response);
+    expect(isValid).toBeTruthy();
   });
 });

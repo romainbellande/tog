@@ -27,7 +27,7 @@ export class Referendum extends Base<Referendum> {
     defaultValue: [],
   })
   @Property()
-  answers: string[];
+  answers: string[] = [];
 
   @Field({ description: 'referendum participants' })
   @Enum(() => ReferendumParticipants)
@@ -39,15 +39,15 @@ export class Referendum extends Base<Referendum> {
     defaultValue: [],
   })
   @Property()
-  participantsExternalIds: string[];
+  participantsExternalIds: string[] = [];
 
   @Field(() => [String], { description: 'participant roles', defaultValue: [] })
   @Property()
-  participantsRoles: string[];
+  participantsRoles: string[] = [];
 
   @Field({ description: 'starting date' })
   @Property()
-  startDate: string;
+  startDate: string = new Date().toISOString();
 
   @Field({ description: 'ending date' })
   @Property()

@@ -17,7 +17,7 @@ services:
       - "8080:8080"
       - "8085:8085"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /run/user/1000/docker.sock:/var/run/docker.sock:ro
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./traefik/config.yml:/etc/traefik/config.yml:ro
 
@@ -53,9 +53,9 @@ services:
       - ./:/home/node
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`api.tog.localhost`)"
-      - "traefik.http.routers.server.entrypoints=http"
-      - 'traefik.http.services.server.loadbalancer.server.port=80'
+      - "traefik.http.routers.api.rule=Host(`api.tog.localhost`)"
+      - "traefik.http.routers.api.entrypoints=http"
+      - 'traefik.http.services.api.loadbalancer.server.port=80'
     depends_on:
       - pg
 
